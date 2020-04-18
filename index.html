@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Personal Expense</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column ;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+
+    
+
+</head>
+<body>
+    <h1 id="headingTotal"></h1>
+    <input id="inputAmount" type="text" placeholder="inputAmount">
+    <input id="inputDesc" type="text" placeholder="description">
+    <button id="btnAddExpense">+</button>
+    <div id="expenseTable"></div>
+    
+    <script>
+
+        //get the heading elemet
+        const headingEl = document.querySelector("#headingTotal");
+
+        //get the refrence to desc element
+        const inputDescEl = document.querySelector("#inputDesc");
+
+        //ref to inputAmount    
+        const inputElement = document.querySelector("#inputAmount");
+        
+        // get the ref to table
+        const expenseTableEl = document.querySelector("#expenseTable");
+
+        // init value of expense at 0
+        let totalExpense = 0;
+
+        //set the heading element to totalExpense
+        headingEl.textContent = totalExpense;
+
+        // All expenses at one place
+        const allExpenses = [];
+
+        // onButtonClick add inputAmount to totalExpense
+        function addExpensetoTotal() {
+            const expenseItem = {};
+
+            //read value from inputAmount
+            const textAmount = inputElement.value;
+
+            // read the desc from inputDesc
+            const textDesc = inputDescEl.value;
+
+
+            // convert it to number
+            const expense = parseInt(textAmount, 10);
+
+            // put it in object
+            expenseItem.desc = textDesc;
+            expenseItem.amount = expense;
+
+            // add the data of the object into the array
+            allExpenses.push(expenseItem);
+
+            //add that value to totalExpense
+            totalExpense = totalExpense + expense;
+
+            //set the heading to totalExpense
+            const someText = `Total Expense: ${totalExpense}`;
+            headingEl.textContent = someText;
+
+            //show the table here
+            const data1 = allExpenses[0];
+            const data2 = allExpenses[1];
+
+            const data1Text = ` ${data1.amount} :: ${data1.desc}`;
+            const data2Text = ` ${data2.amount} :: ${data2.desc}`;
+
+            const tableText = `
+                <div>${data1Text}</div>
+                <div>${data2Text}</div>
+            
+            `;
+
+            expenseTableEl.innerHTML = tableText;
+        }
+
+        //GEt the button element
+        const element = document.querySelector("#btnAddExpense"); //HW:Read about queryselector onm mzilla.org. Search for queryselector mdn
+
+        //listen to click event
+        element.addEventListener("click", addExpensetoTotal, false);
+        
+
+
+    </script>
+
+</body>
+</html>
